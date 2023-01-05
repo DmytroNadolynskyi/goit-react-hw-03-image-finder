@@ -52,7 +52,7 @@ export class App extends Component {
     this.setState({ modalIsOpen: bool });
   };
   updateImages = arr => {
-    this.setState(prev => ({ images: [...prev.images, ...arr] }));
+    this.setState(prevState => ({ images: [...prevState.images, ...arr] }));
   };
   setIsLoading = bool => {
     this.setState({ isLoading: bool });

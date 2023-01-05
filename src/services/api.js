@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const Api = async ({ page, query }) => {
-  const response = await axios.get('https://pixabay.com/api/', {
+  const {data} = await axios.get('https://pixabay.com/api/', {
     params: {
       key: '31574870-ec3306c679007fa4646c6ce9c',
       page,
@@ -11,5 +11,5 @@ export const Api = async ({ page, query }) => {
       orientation: 'horizontal',
     },
   });
-  return response.data;
+  return data;
 };
