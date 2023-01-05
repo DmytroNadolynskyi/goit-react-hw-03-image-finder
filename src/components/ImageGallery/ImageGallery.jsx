@@ -24,5 +24,5 @@ ImageGallery.propTypes = {
       largeImageURL: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.array.isRequired,
 };
