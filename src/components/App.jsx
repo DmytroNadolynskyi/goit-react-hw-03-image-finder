@@ -77,8 +77,8 @@ export class App extends Component {
           />
         )}
         {this.state.isLoading && <Loader />}
-        {this.state.btnShouldRender && (
-          <Button onButtonClick={this.pageIncrement} />
+        {this.state.showButton && (
+          <Button onButtonClick={this.onButtonClick} />
         )}
         {this.state.modalIsOpen && (
           <Modal
