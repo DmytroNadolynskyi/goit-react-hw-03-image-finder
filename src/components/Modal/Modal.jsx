@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import { Overlay,ModalCss } from './Modal.styled';
+import { Overlay, ModalCss } from './Modal.styled';
 
 export class Modal extends Component {
-
   componentDidMount() {
     window.addEventListener('keydown', this.onEscClick);
   }
@@ -11,7 +10,7 @@ export class Modal extends Component {
     window.removeEventListener('keydown', this.onEscClick);
   }
 
-  onBackdropClick = (e) => {
+  onBackdropClick = e => {
     if (e.target === e.currentTarget) {
       this.props.onModalOpen(false);
     }
@@ -24,10 +23,9 @@ export class Modal extends Component {
     this.props.onModalOpen(false);
   };
 
-  
   render() {
     return (
-      <Overlay onClick={this.onBackdropClick} >
+      <Overlay onClick={this.onBackdropClick}>
         <ModalCss>
           <img src={this.props.largeImage} alt="" />
         </ModalCss>

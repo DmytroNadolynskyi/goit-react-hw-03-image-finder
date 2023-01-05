@@ -5,7 +5,6 @@ import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 export const ImageGallery = ({ images, onClick }) => {
   return (
     <ImageGalleryCss>
-
       {images.map(({ id, webformatURL, largeImageURL }) => (
         <ImageGalleryItem
           key={id}
@@ -27,4 +26,3 @@ ImageGallery.propTypes = {
   ).isRequired,
   onClick: PropTypes.func.isRequired,
 };
-

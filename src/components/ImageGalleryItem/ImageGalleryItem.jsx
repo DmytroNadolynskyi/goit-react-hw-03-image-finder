@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
-import { ImageGalleryItemCss, ImageGalleryItemImage } from './ImageGalleryItem.styled';
+import {
+  ImageGalleryItemCss,
+  ImageGalleryItemImage,
+} from './ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({  onClick,webformatURL, largeImageURL }) => {
+export const ImageGalleryItem = ({ onClick, webformatURL, largeImageURL }) => {
   const onImageClick = e => {
     onClick[0](e.target.dataset.image);
     onClick[1](true);

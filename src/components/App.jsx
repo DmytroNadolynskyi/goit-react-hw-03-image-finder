@@ -77,9 +77,7 @@ export class App extends Component {
           />
         )}
         {this.state.isLoading && <Loader />}
-        {this.state.showButton && (
-          <Button onButtonClick={this.onButtonClick} />
-        )}
+        {this.state.showButton && <Button onButtonClick={this.onButtonClick} />}
         {this.state.modalIsOpen && (
           <Modal
             largeImage={this.state.modalImage}
@@ -89,5 +87,4 @@ export class App extends Component {
       </>
     );
   }
-};
-
+}
