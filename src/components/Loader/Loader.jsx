@@ -1,7 +1,7 @@
 import { BackDrop } from './Loader.styled';
 import { Vortex } from 'react-loader-spinner';
 
-export const Loader = () => {
+const Loader = () => {
   return (
     <BackDrop>
       <Vortex
@@ -16,3 +16,4 @@ export const Loader = () => {
     </BackDrop>
   );
 };
+export default Loader;

@@ -4,7 +4,7 @@ import {
   ImageGalleryItemImage,
 } from './ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({ onClick, webformatURL, largeImageURL }) => {
+const ImageGalleryItem = ({ onClick, webformatURL, largeImageURL }) => {
   const onImageClick = e => {
     onClick(e.target.dataset.image);
   };
@@ -26,3 +26,5 @@ ImageGalleryItem.propTypes = {
   largeImageURL: PropTypes.PropTypes.string.isRequired,
   webformatURL: PropTypes.PropTypes.string.isRequired,
 };
+
+export default ImageGalleryItem;

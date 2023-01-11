@@ -9,7 +9,7 @@ import {
   SearchFormInput,
 } from './Searchbar.styled';
 
-export const Searchbar = ({ onSubmit }) => {
+const Searchbar = ({ onSubmit }) => {
   const [searchValue, setSearchValue] = useState('');
 
   const inputChange = event => {
@@ -45,3 +45,4 @@ export const Searchbar = ({ onSubmit }) => {
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+export default Searchbar;

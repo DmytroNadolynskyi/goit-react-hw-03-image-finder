@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { ImageGalleryCss } from './ImageGallery.styled';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = ({ images, onClick }) => {
+const ImageGallery = ({ images, onClick }) => {
   return (
     <ImageGalleryCss>
       {images.map(({ id, webformatURL, largeImageURL }) => (
@@ -26,3 +26,4 @@ ImageGallery.propTypes = {
   ).isRequired,
   onClick: PropTypes.func.isRequired,
 };
+export default ImageGallery;
