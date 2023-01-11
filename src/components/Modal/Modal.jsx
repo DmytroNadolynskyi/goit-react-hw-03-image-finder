@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Overlay, ModalCss } from './Modal.styled';
 
-const Modal = ({ ModalOpen, largeImage }) => {
+const Modal = ({ modalOpen, largeImage }) => {
   useEffect(() => {
     const onEscClick = e => {
       if (e.code !== 'Escape') {
         return;
       }
-      ModalOpen('');
+      modalOpen('');
     };
 
     window.addEventListener('keydown', onEscClick);
@@ -16,11 +16,11 @@ const Modal = ({ ModalOpen, largeImage }) => {
     return () => {
       window.removeEventListener('keydown', onEscClick);
     };
-  }, [ModalOpen]);
+  }, [modalOpen]);
 
   const onBackdropClick = e => {
     if (e.target === e.currentTarget) {
-      ModalOpen('');
+      modalOpen('');
     }
   };
 
@@ -35,6 +35,6 @@ const Modal = ({ ModalOpen, largeImage }) => {
 
 Modal.propType = {
   largeImage: PropTypes.string.isRequired,
-  ModalOpen: PropTypes.func.isRequired,
+  modalOpen: PropTypes.func.isRequired,
 };
 export default Modal;

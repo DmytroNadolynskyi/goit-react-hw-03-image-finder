@@ -39,7 +39,7 @@ export const App = () => {
   const onButtonClick = () => {
     setPage(prevState => prevState + 1);
   };
-  const ModalOpen = image => {
+  const modalOpen = image => {
     setLargeImage(image);
   };
   const onSubmit = str => {
@@ -57,7 +57,7 @@ export const App = () => {
       )}
       {isLoading && <Loader />}
       {largeImage.length > 0 && (
-        <Modal largeImage={largeImage} ModalOpen={ModalOpen} />
+        <Modal largeImage={largeImage} modalOpen={modalOpen} />
       )}
       {showButton && <Button onButtonClick={onButtonClick} />}
     </>
