@@ -14,8 +14,8 @@ export const App = () => {
   const [showButton, setShowButton] = useState(false);
   const [largeImage, setLargeImage] = useState('');
   useEffect(() => {
-    if (!query){
-      return
+    if (!query) {
+      return;
     }
     const getImages = async () => {
       setShowButton(false);
@@ -37,12 +37,10 @@ export const App = () => {
   }, [page, query]);
 
   const onButtonClick = () => {
-    setPage(prevState => (
-    prevState + 1
-    ));
+    setPage(prevState => prevState + 1);
   };
   const ModalOpen = image => {
-    setLargeImage(image)
+    setLargeImage(image);
   };
   const onSubmit = str => {
     if (str === query) return;
@@ -51,16 +49,16 @@ export const App = () => {
     setImages([]);
   };
 
-
-
   return (
     <>
       <Searchbar onSubmit={onSubmit} />
       {images.length !== 0 && (
         <ImageGallery images={images} onClick={setLargeImage} />
       )}
-      {isLoading && (<Loader />)}
-      {largeImage.length > 0 && <Modal  largeImage={largeImage} ModalOpen={ModalOpen} />}
+      {isLoading && <Loader />}
+      {largeImage.length > 0 && (
+        <Modal largeImage={largeImage} ModalOpen={ModalOpen} />
+      )}
       {showButton && <Button onButtonClick={onButtonClick} />}
     </>
   );
