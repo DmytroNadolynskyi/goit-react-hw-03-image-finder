@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
@@ -6,85 +6,62 @@ import { Loader } from './Loader/Loader';
 import { Modal } from './Modal/Modal';
 import { Api } from '../services/api';
 
-export class App extends Component {
-  state = {
-    query: '',
-    page: 1,
-    isLoading: false,
-    images: [],
-    modalIsOpen: false,
-    modalImage: '',
-    showButton: false,
-  };
-  async componentDidUpdate(_, prevState) {
-    const { query, page } = this.state;
-    if (prevState.query !== query || prevState.page !== page) {
-      this.setState({ showButton: false });
+export const App = () => {
+  const [page, setPage] = useState(1);
+  const [images, setImages] = useState([]);
+  const [query, setQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [largeImage, setLargeImage] = useState('');
+  useEffect(() => {
+    if (!query){
+      return
+    }
+    const getImages = async () => {
+      setShowButton(false);
       try {
-        this.setIsLoading(true);
-        const data = await Api({
-          page: page,
-          query: query,
+        setIsLoading(true);
+        const { hits, total } = await Api({
+          page,
+          query,
         });
-        this.updateImages(data.hits);
-        page < Math.ceil(data.total / 12) &&
-          this.setState({ showButton: true });
+        setImages(prev => [...prev, ...hits]);
+        page < Math.ceil(total / 12) && setShowButton(true);
       } catch (error) {
         console.log(error.message);
       } finally {
-        this.setIsLoading(false);
+        setIsLoading(false);
       }
-    }
-  }
-  updateQuery = str => {
-    this.setState({ query: str });
+    };
+    getImages();
+  }, [page, query]);
+
+  const onButtonClick = () => {
+    setPage(prevState => (
+    prevState + 1
+    ));
   };
-  setPageToOne = () => {
-    this.setState({ page: 1 });
+  const ModalOpen = image => {
+    setLargeImage(image)
   };
-  onButtonClick = () => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
-  };
-  setModalImage = str => {
-    this.setState({ modalImage: str });
-  };
-  setModalIsOpen = bool => {
-    this.setState({ modalIsOpen: bool });
-  };
-  updateImages = arr => {
-    this.setState(prevState => ({ images: [...prevState.images, ...arr] }));
-  };
-  setIsLoading = bool => {
-    this.setState({ isLoading: bool });
-  };
-  onSubmit = str => {
-    if (str === this.state.query) return;
-    this.setPageToOne();
-    this.updateQuery(str);
-    this.setState({
-      images: [],
-    });
+  const onSubmit = str => {
+    if (str === query) return;
+    setPage(1);
+    setQuery(str);
+    setImages([]);
   };
 
-  render() {
-    return (
-      <>
-        <Searchbar onSubmit={this.onSubmit} />
-        {this.state.images.length !== 0 && (
-          <ImageGallery
-            images={this.state.images}
-            onClick={[this.setModalImage, this.setModalIsOpen]}
-          />
-        )}
-        {this.state.isLoading && <Loader />}
-        {this.state.showButton && <Button onButtonClick={this.onButtonClick} />}
-        {this.state.modalIsOpen && (
-          <Modal
-            largeImage={this.state.modalImage}
-            onModalOpen={this.setModalIsOpen}
-          />
-        )}
-      </>
-    );
-  }
-}
+
+
+  return (
+    <>
+      <Searchbar onSubmit={onSubmit} />
+      {images.length !== 0 && (
+        <ImageGallery images={images} onClick={setLargeImage} />
+      )}
+      {isLoading && (<Loader />)}
+      {largeImage.length > 0 && <Modal  largeImage={largeImage} ModalOpen={ModalOpen} />}
+      {showButton && <Button onButtonClick={onButtonClick} />}
+    </>
+  );
+};

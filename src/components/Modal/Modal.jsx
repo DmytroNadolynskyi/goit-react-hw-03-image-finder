@@ -1,40 +1,39 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { useEffect } from 'react';
 import { Overlay, ModalCss } from './Modal.styled';
 
-export class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.onEscClick);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onEscClick);
-  }
+export const Modal = ({ ModalOpen, largeImage }) => {
+  useEffect(() => {
+    const onEscClick = e => {
+      if (e.code !== 'Escape') {
+        return;
+      }
+      ModalOpen('');
+    };
 
-  onBackdropClick = e => {
+    window.addEventListener('keydown', onEscClick);
+
+    return () => {
+      window.removeEventListener('keydown', onEscClick);
+    };
+  }, [ModalOpen]);
+
+  const onBackdropClick = e => {
     if (e.target === e.currentTarget) {
-      this.props.onModalOpen(false);
+      ModalOpen('');
     }
   };
 
-  onEscClick = e => {
-    if (e.key !== 'Escape') {
-      return;
-    }
-    this.props.onModalOpen(false);
-  };
-
-  render() {
-    return (
-      <Overlay onClick={this.onBackdropClick}>
-        <ModalCss>
-          <img src={this.props.largeImage} alt="" />
-        </ModalCss>
-      </Overlay>
-    );
-  }
-}
+  return (
+    <Overlay onClick={onBackdropClick}>
+      <ModalCss>
+        <img src={largeImage} alt="" />
+      </ModalCss>
+    </Overlay>
+  );
+};
 
 Modal.propType = {
   largeImage: PropTypes.string.isRequired,
-  onModalOpen: PropTypes.func.isRequired,
+  ModalOpen: PropTypes.func.isRequired,
 };

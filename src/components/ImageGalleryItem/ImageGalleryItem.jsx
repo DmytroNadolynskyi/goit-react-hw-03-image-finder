@@ -6,8 +6,7 @@ import {
 
 export const ImageGalleryItem = ({ onClick, webformatURL, largeImageURL }) => {
   const onImageClick = e => {
-    onClick[0](e.target.dataset.image);
-    onClick[1](true);
+    onClick(e.target.dataset.image);
   };
 
   return (
@@ -23,7 +22,7 @@ export const ImageGalleryItem = ({ onClick, webformatURL, largeImageURL }) => {
 };
 
 ImageGalleryItem.propTypes = {
-  onClick: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
   largeImageURL: PropTypes.PropTypes.string.isRequired,
   webformatURL: PropTypes.PropTypes.string.isRequired,
 };
